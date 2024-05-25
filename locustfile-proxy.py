@@ -29,7 +29,6 @@ class OrderUser(HttpUser):
             order_id, order_status = random.choice(list(self.created_orders.items()))
             next_state = self.nextState(order_status)
             if(next_state):
-                print(f"Changing order {order_id} to {next_state}")
                 self.created_orders[order_id] = next_state
                 self.client.patch(f"/v2/orders/{order_id}", json={"status": next_state}, name="/v2/orders/[orderId]")
         except IndexError:
